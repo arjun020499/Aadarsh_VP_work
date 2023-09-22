@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Registration</h1>
+    <form id="registration-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required><br><br>
+
+        <label for="attendance">Can you attend the event? (Offline Event)</label>
+        <select id="attendance" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="location"></p>
+
+    <script>
+        // Get user's location
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var locationInfo = "Latitude: " + latitude + ", Longitude: " + longitude;
+                document.getElementById("location").textContent = "Your Coordinates: " + locationInfo;
+            });
+        } else {
+            document.getElementById("location").textContent = "Geolocation is not supported in your browser.";
+        }
+
+        // Handle form submission
+        document.getElementById("registration-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var attendance = document.getElementById("attendance").value;
+            
+            // You can send this data to your server or perform any other action here
+            // For simplicity, we'll just display the data in an alert
+            var message = "Name: " + name + "\nPhone: " + phone + "\nAttendance: " + attendance;
+            alert("Form submitted with the following data:\n" + message);
+        });
+    </script>
+</body>
+</html>
